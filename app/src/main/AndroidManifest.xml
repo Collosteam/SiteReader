@@ -24,6 +24,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.collosteam.sitereader.LoginActivity" />
         </activity>
+        <activity
+            android:name=".ArticleListActivity"
+            android:label="@string/title_activity_article_list" >
+        </activity>
+        <activity
+            android:name=".ArticleActivity"
+            android:label="@string/title_activity_article"
+            android:parentActivityName=".ArticleListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.collosteam.sitereader.ArticleListActivity" />
+        </activity>
     </application>
 
 </manifest>
