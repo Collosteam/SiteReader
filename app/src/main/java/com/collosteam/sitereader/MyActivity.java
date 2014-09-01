@@ -1,16 +1,20 @@
 package com.collosteam.sitereader;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MyActivity extends Activity implements View.OnClickListener {
+import com.collosteam.sitereader.db.DBColumns;
+import com.collosteam.sitereader.db.DBHelper;
+
+public class MyActivity extends Activity implements View.OnClickListener, DBColumns {
     private String TAG = "{MyActivity}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,22 @@ public class MyActivity extends Activity implements View.OnClickListener {
 /*Go Button*/
         Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(this);
+
+        /*DATABASE*/
+        DBHelper helper = new DBHelper(this);
+
+        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_NAME, "Bill");
+        contentValues.put(COL_EMAIL, "bill@gov.us");
+        contentValues.put(COL_PASS, "12345");
+
+        writableDatabase.insert(DBHelper.TABLE,null,contentValues);
+
+
+
+
     }
 
     @Override
@@ -58,6 +78,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 msg = "Go!";
 
                 Intent intent = new Intent(this, SignUpActivity.class);
+                intent.putExtra(SignUpActivity.EXTRAS_NAME,"Bill");
 
                 startActivity(intent);
 
@@ -68,6 +89,8 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 break;
         }
         Toast.makeText(MyActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+
 
     }
 }
