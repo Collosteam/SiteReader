@@ -2,6 +2,7 @@ package com.collosteam.sitereader;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -58,6 +59,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 msg = "Go!";
 
                 Intent intent = new Intent(this, SignUpActivity.class);
+                intent.putExtra(SignUpActivity.EXTRAS_NAME,"Bill");
 
                 startActivity(intent);
 
@@ -68,6 +70,8 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 break;
         }
         Toast.makeText(MyActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+
 
     }
 }
