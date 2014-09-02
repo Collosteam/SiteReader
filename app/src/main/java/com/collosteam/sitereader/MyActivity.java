@@ -23,6 +23,8 @@ public class MyActivity extends Activity implements View.OnClickListener {
 /*Go Button*/
         Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(this);
+
+
     }
 
     @Override
