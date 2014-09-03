@@ -2,9 +2,7 @@ package com.collosteam.sitereader;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +15,11 @@ public class MyActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-/*Hello Button*/
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);
-/*Go Button*/
-        Button button2 = (Button) findViewById(R.id.button2);
+/*Login screen Button*/
+        Button button1 = (Button) findViewById(R.id.etLoginScreen);
+        button1.setOnClickListener(this);
+/*registration screen Button*/
+        Button button2 = (Button) findViewById(R.id.etRegistrationScreen);
         button2.setOnClickListener(this);
 
 
@@ -53,17 +51,21 @@ public class MyActivity extends Activity implements View.OnClickListener {
         int id = v.getId();
 
         switch (id) {
-            case R.id.button:
-                msg = "Hello!";
+            case R.id.etLoginScreen:
+                msg = "Wazzzzzup!!!!";
+
+                Intent intent1 = new Intent(this, LoginScreenActivity.class);
+                startActivity(intent1);
+                //intent1.putExtra(SignUpActivity.EXTRAS_NAME,"Bill");
                 break;
 
-            case R.id.button2:
-                msg = "Go!";
+            case R.id.etRegistrationScreen:
+                msg = "Go to registration screen";
 
-                Intent intent = new Intent(this, SignUpActivity.class);
-                intent.putExtra(SignUpActivity.EXTRAS_NAME,"Bill");
+                Intent intent2 = new Intent(this, SignUpActivity.class);
+                //intent2.putExtra(SignUpActivity.EXTRAS_NAME, msg);
 
-                startActivity(intent);
+                startActivity(intent2);
 
                 break;
 

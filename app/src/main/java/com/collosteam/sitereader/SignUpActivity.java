@@ -35,7 +35,7 @@ public class SignUpActivity extends Activity {
             etName.setText(intent.getStringExtra(EXTRAS_NAME));
         }
 
-        Button buttonNext = (Button) findViewById(R.id.button);
+        Button buttonNext = (Button) findViewById(R.id.etLoginScreen);
         buttonNext.setOnClickListener(
 
                 new View.OnClickListener() {
