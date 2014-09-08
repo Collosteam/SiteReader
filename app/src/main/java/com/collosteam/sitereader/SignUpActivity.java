@@ -2,7 +2,9 @@ package com.collosteam.sitereader;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,17 +74,49 @@ public class SignUpActivity extends Activity {
 
                         MyApp.userMap.put(user1.hashCode(), user1);
 
+                        saveUserToSP(user1);
 
-                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add,user1.getName())
-                                  ,
+                        User savedUser = getCurrentUser();
+
+                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add, savedUser)
+                                ,
                                 Toast.LENGTH_SHORT).show();
 
                         finish();
                     }
                 }
         );
+    }
+    public static final String PREF_KEY_NAME = "p.name";
+    public static final String PREF_KEY_PASSW = "p.pass";
+    public static final String PREF_KEY_EMAIL = "p.mail";
 
 
+    private void saveUserToSP(User user) {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+
+        edit.putString(PREF_KEY_NAME, user.getName());
+        edit.putString(PREF_KEY_PASSW, user.getPass());
+        edit.putString(PREF_KEY_EMAIL, user.getEmail());
+
+        edit.commit();
+    }
+
+
+    public User getCurrentUser() {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String name = sharedPreferences.getString(PREF_KEY_NAME, "default");
+        String pass = sharedPreferences.getString(PREF_KEY_PASSW, "default");
+        String email = sharedPreferences.getString(PREF_KEY_EMAIL, "default@");
+
+        User user = new SempleUser(name, pass, email);
+
+        return user;
     }
 
 

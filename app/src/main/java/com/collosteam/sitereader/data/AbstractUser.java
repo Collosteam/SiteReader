@@ -30,4 +30,14 @@ public abstract class AbstractUser implements User {
         result = 31 * result + mEmail.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("AbstractUser{");
+        sb.append("mName='").append(mName).append('\'');
+        sb.append(", mPass='").append(mPass).append('\'');
+        sb.append(", mEmail='").append(mEmail).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

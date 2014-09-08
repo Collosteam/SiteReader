@@ -25,4 +25,10 @@ public class SempleUser extends AbstractUser {
     public String getEmail() {
         return mEmail;
     }
+
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
