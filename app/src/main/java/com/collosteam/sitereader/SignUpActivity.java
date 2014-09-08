@@ -2,9 +2,13 @@ package com.collosteam.sitereader;
 
 import android.app.Activity;
 import android.content.Intent;
+<<<<<<< .merge_file_a03048
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+=======
+import android.os.Bundle;
+>>>>>>> .merge_file_a19556
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,12 +78,18 @@ public class SignUpActivity extends Activity {
 
                         MyApp.userMap.put(user1.hashCode(), user1);
 
+<<<<<<< .merge_file_a03048
                         saveUserToSP(user1);
 
                         User savedUser = getCurrentUser();
 
                         Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add, savedUser)
                                 ,
+=======
+
+                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add,user1.getName())
+                                  ,
+>>>>>>> .merge_file_a19556
                                 Toast.LENGTH_SHORT).show();
 
                         finish();

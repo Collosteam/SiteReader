@@ -3,7 +3,11 @@ package com.collosteam.sitereader;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+<<<<<<< .merge_file_a19696
 import android.database.sqlite.SQLiteDatabase;
+=======
+import android.graphics.drawable.Drawable;
+>>>>>>> .merge_file_a11636
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
