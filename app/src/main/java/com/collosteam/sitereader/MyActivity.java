@@ -1,7 +1,9 @@
 package com.collosteam.sitereader;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MyActivity extends Activity implements View.OnClickListener {
+import com.collosteam.sitereader.db.DBColumns;
+import com.collosteam.sitereader.db.DBHelper;
+
+public class MyActivity extends Activity implements View.OnClickListener, DBColumns{
     private String TAG = "{MyActivity}";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,19 @@ public class MyActivity extends Activity implements View.OnClickListener {
 /*Go Button*/
         Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(this);
+
+        //DB
+
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_NAME, "Bill");
+        contentValues.put(COL_EMAIL, "bill@i.ua");
+        contentValues.put(COL_PASS, "12345");
+
+        writableDatabase.insert(DBHelper.TABLE, null, contentValues);
+
 
 
     }

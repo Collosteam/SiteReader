@@ -11,6 +11,7 @@ public class SempleUser extends AbstractUser {
         mEmail = email;
     }
 
+
     @Override
     public String getName() {
         return mName;
