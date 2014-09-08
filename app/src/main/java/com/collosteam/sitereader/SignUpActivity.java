@@ -86,11 +86,7 @@ public class SignUpActivity extends Activity {
                     }
                 }
         );
-
-
     }
-
-
     public static final String PREF_KEY_NAME = "p.name";
     public static final String PREF_KEY_PASSW = "p.pass";
     public static final String PREF_KEY_EMAIL = "p.mail";
