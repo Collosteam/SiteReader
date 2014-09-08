@@ -7,23 +7,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.collosteam.sitereader.data.SempleUser;
+import com.collosteam.sitereader.data.User;
 
 public class MyActivity extends Activity implements View.OnClickListener {
     private String TAG = "{MyActivity}";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 /*Login screen Button*/
-        Button button1 = (Button) findViewById(R.id.etLoginScreen);
+        Button button1 = (Button) findViewById(R.id.etLogin1);
         button1.setOnClickListener(this);
 /*registration screen Button*/
         Button button2 = (Button) findViewById(R.id.etRegistrationScreen);
         button2.setOnClickListener(this);
 
+ }
 
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,7 +57,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         int id = v.getId();
 
         switch (id) {
-            case R.id.etLoginScreen:
+            case R.id.etLogin1:
                 msg = "Wazzzzzup!!!!";
 
                 Intent intent1 = new Intent(this, LoginScreenActivity.class);

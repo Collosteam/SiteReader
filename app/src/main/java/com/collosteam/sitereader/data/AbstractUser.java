@@ -27,7 +27,8 @@ public abstract class AbstractUser implements User {
     public int hashCode() {
         int result = mName.hashCode();
         result = 31 * result + mPass.hashCode();
-        result = 31 * result + mEmail.hashCode();
+        result = 31 * result;
+
         return result;
     }
 }

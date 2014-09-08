@@ -10,6 +10,11 @@ public class SempleUser extends AbstractUser {
         mPass = pass;
         mEmail = email;
     }
+    public SempleUser(String name, String pass) {
+        mName = name;
+        mPass = pass;
+
+    }
 
     @Override
     public String getName() {

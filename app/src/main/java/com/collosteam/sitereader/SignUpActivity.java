@@ -18,6 +18,17 @@ import com.collosteam.sitereader.data.User;
 public class SignUpActivity extends Activity {
 
 
+    public User getUser1() {
+        return user1;
+    }
+
+    public User getUser2() {
+        return user2;
+    }
+
+    protected User user1;
+    protected User user2;
+
     public static final String EXTRAS_NAME = "name";
 
 
@@ -30,12 +41,14 @@ public class SignUpActivity extends Activity {
 
         final EditText etName = (EditText) findViewById(R.id.etName);
         final EditText etPass = (EditText) findViewById(R.id.etPass);
+        final EditText etPass2 = (EditText) findViewById(R.id.etPass2);
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         if (intent.hasExtra(EXTRAS_NAME)) {
             etName.setText(intent.getStringExtra(EXTRAS_NAME));
         }
 
-        Button buttonNext = (Button) findViewById(R.id.etLoginScreen);
+
+        Button buttonNext = (Button) findViewById(R.id.etLogin1);
         buttonNext.setOnClickListener(
 
                 new View.OnClickListener() {
@@ -52,6 +65,15 @@ public class SignUpActivity extends Activity {
                             return;
                         }
 
+                        if (etPass2.getText().length()==0){
+                            etPass2.setError("Пароль не может быть пустым");
+                            return;
+                        }
+                        if (!(etPass2.getText().toString().equals(etPass.getText().toString()))){
+                            etPass2.setError("Пароли не совпадают");
+                            return;
+                        }
+
                         if (etEmail.getText().length() == 0) {
                             etEmail.setError("Почта не может быть пустой");
                             return;
@@ -59,21 +81,27 @@ public class SignUpActivity extends Activity {
                             etEmail.setError("Неправильная почта");
                             return;
                         }
+                        user2 = new SempleUser(
+                            etName.getText().toString(),
+                            etPass.getText().toString());
 
-                        User user1 = new SempleUser(
+                        user1 = new SempleUser(
                                 etName.getText().toString(),
                                 etPass.getText().toString(),
                                 etEmail.getText().toString());
 
-                        if (MyApp.userMap.containsKey(user1.hashCode())) {
-                            etName.setError("Этот пользователь чем то занят!");
+
+                        if (MyApp.userMap.containsKey(user2.hashCode())) {
+                            etName.setError("Это имя пользователя занято!");
                             return;
                         }
 
-                        MyApp.userMap.put(user1.hashCode(), user1);
+
+                        MyApp.userMap.put(user2.hashCode(),user2);
+                        MyApp.userMap.put(user1.hashCode(),user1);
 
 
-                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add,user1.getName())
+                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add,user2.getName())
                                   ,
                                 Toast.LENGTH_SHORT).show();
 

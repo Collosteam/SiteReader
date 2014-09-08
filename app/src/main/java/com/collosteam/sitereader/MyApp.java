@@ -13,6 +13,7 @@ import java.util.Map;
 public class MyApp extends Application {
 
     public static Map<Integer,User> userMap = new HashMap<Integer, User>();
+    public static Map<Integer,User> userEmail = new HashMap<Integer, User>();
 
 
 
