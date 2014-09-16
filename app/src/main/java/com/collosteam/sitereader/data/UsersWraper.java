@@ -13,14 +13,18 @@ import java.util.List;
 public class UsersWraper implements DBColumns {
 
 
-    User user;
+    public List<User> getData() {
+        return users;
+    }
+
+    public List<User> users;
 
     public UsersWraper(Cursor cursor) {
         int nameID = cursor.getColumnIndex(COL_NAME);
         int emailID = cursor.getColumnIndex(COL_EMAIL);
         int passID = cursor.getColumnIndex(COL_PASS);
 
-        List<User> users = new ArrayList<User>();
+        users = new ArrayList<User>();
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -34,6 +38,8 @@ public class UsersWraper implements DBColumns {
             }
         }
     }
+
+
 
 
 

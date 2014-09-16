@@ -1,9 +1,7 @@
 package com.collosteam.sitereader;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.collosteam.sitereader.db.DBColumns;
-import com.collosteam.sitereader.db.DBHelper;
 
 public class MyActivity extends Activity implements View.OnClickListener, DBColumns {
     private String TAG = "{MyActivity}";
@@ -27,21 +24,9 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
         Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(this);
 
-        /*DATABASE*/
-        DBHelper helper = new DBHelper(this);
-
-        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_NAME, "Bill");
-        contentValues.put(COL_EMAIL, "bill@gov.us");
-        contentValues.put(COL_PASS, "12345");
-
-        writableDatabase.insert(DBHelper.TABLE,null,contentValues);
-
-
-
-
+        /*Score Button*/
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(this);
     }
 
     @Override
@@ -83,6 +68,14 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
                 startActivity(intent);
 
                 break;
+
+
+            case R.id.button3:
+                msg = "Score!";
+                Intent intent2 = new Intent(this, ScoreActivity.class);
+                startActivity(intent2);
+                break;
+
 
             default:
                 msg = "Ups!";

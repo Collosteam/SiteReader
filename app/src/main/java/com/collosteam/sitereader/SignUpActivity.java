@@ -1,11 +1,14 @@
 package com.collosteam.sitereader;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,13 +18,17 @@ import android.widget.Toast;
 
 import com.collosteam.sitereader.data.SempleUser;
 import com.collosteam.sitereader.data.User;
+import com.collosteam.sitereader.data.UsersWraper;
+import com.collosteam.sitereader.db.DBColumns;
+import com.collosteam.sitereader.db.MyContentProvider;
+
+import java.util.List;
 
 
-public class SignUpActivity extends Activity {
-
+public class SignUpActivity extends Activity implements DBColumns {
 
     public static final String EXTRAS_NAME = "name";
-
+    private String TAG = "{SignUpActivity}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,32 +68,49 @@ public class SignUpActivity extends Activity {
                             etEmail.setError("Неправильная почта");
                             return;
                         }
-
                         User user1 = new SempleUser(
                                 etName.getText().toString(),
                                 etPass.getText().toString(),
                                 etEmail.getText().toString());
+                        /*if (MyApp.userMap.containsKey(user1.hashCode())) {
+                          etName.setError("Этот пользователь чем то занят!");
+                          return; }
+                          MyApp.userMap.put(user1.hashCode(), user1);
+                          saveUserToSP(user1);
+                          User savedUser = getCurrentUser();*/
 
-                        if (MyApp.userMap.containsKey(user1.hashCode())) {
-                            etName.setError("Этот пользователь чем то занят!");
-                            return;
-                        }
+                        /*DATABASE BEGIN*/
+                        /*DBHelper helper = new DBHelper(SignUpActivity.this);
+                        SQLiteDatabase database = helper.getReadableDatabase();*/
 
-                        MyApp.userMap.put(user1.hashCode(), user1);
+                        Cursor cursor =  getContentResolver().query(MyContentProvider.CONTENT_URI_USERS, null, null, null, null, null);
 
-                        saveUserToSP(user1);
+                        List<User> users = new UsersWraper(cursor).getData();
 
-                        User savedUser = getCurrentUser();
+                        Log.d(TAG,"All users - " + users);
 
-                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add, savedUser)
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(COL_NAME, user1.getName());
+                        contentValues.put(COL_EMAIL, user1.getEmail());
+                        contentValues.put(COL_PASS, user1.getPass());
+
+                        // writableDatabase.insert(TB_NAME_USERS, null, contentValues);
+
+                        getContentResolver().insert(MyContentProvider.CONTENT_URI_USERS, contentValues);
+
+                        /*DATABASE END*/
+
+                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add, user1)
                                 ,
                                 Toast.LENGTH_SHORT).show();
 
                         finish();
                     }
                 }
+                
         );
     }
+
     public static final String PREF_KEY_NAME = "p.name";
     public static final String PREF_KEY_PASSW = "p.pass";
     public static final String PREF_KEY_EMAIL = "p.mail";
