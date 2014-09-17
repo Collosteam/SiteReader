@@ -29,17 +29,12 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
         Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(this);
 
+        //Score button
+        Button button3 = (Button) findViewById(R.id.button3);
+        button3.setOnClickListener(this);
+
+
         //DB
-
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COL_NAME, "Bill");
-        contentValues.put(COL_EMAIL, "bill@i.ua");
-        contentValues.put(COL_PASS, "12345");
-
-        writableDatabase.insert(DBHelper.TABLE, null, contentValues);
 
 
 
@@ -83,6 +78,11 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
                 startActivity(intent);
 
+                break;
+            case R.id.button3:
+                msg="Score";
+                Intent intent2=new Intent(this, ScoreActivity.class);
+                startActivity(intent2);
                 break;
 
             default:

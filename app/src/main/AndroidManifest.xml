@@ -25,6 +25,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.collosteam.sitereader.MyActivity" />
         </activity>
+
+        <provider
+            android:name=".db.MyContentProvider"
+            android:authorities="com.dewacademy.sitereader"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <activity
+            android:name=".ScoreActivity"
+            android:label="@string/title_activity_score"
+            android:parentActivityName=".MyActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.collosteam.sitereader.MyActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,11 +1,15 @@
 package com.collosteam.sitereader;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +19,19 @@ import android.widget.Toast;
 
 import com.collosteam.sitereader.data.SempleUser;
 import com.collosteam.sitereader.data.User;
+import com.collosteam.sitereader.db.DBColumns;
+import com.collosteam.sitereader.db.DBHelper;
+import com.collosteam.sitereader.db.MyContentProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class SignUpActivity extends Activity {
+public class SignUpActivity extends Activity implements DBColumns{
 
 
     public static final String EXTRAS_NAME = "name";
+    private String TAG = "{myTAGGG}";
 
 
     @Override
@@ -67,19 +78,58 @@ public class SignUpActivity extends Activity {
                                 etPass.getText().toString(),
                                 etEmail.getText().toString());
 
-                        if (MyApp.userMap.containsKey(user1.hashCode())) {
+                        /*if (MyApp.userMap.containsKey(user1.hashCode())) {
                             etName.setError("Этот пользователь чем то занят!");
                             return;
+                        }*/
+
+                        //MyApp.userMap.put(user1.hashCode(), user1);
+
+
+                        //saveUserToSP(user1);
+                       //User savedUser = getCurrentUser();
+//DB
+                        //DBHelper helper = new DBHelper(SignUpActivity.this);
+                        //SQLiteDatabase database = helper.getReadableDatabase();
+
+                       //Cursor cursor = database.query(TB_NAME_USERS,null, null, null, null, null, null);
+                      Cursor cursor = getContentResolver().query(MyContentProvider.CONTENT_URI_USERS,null, null, null, null, null);
+
+                        int nameID=cursor.getColumnIndex(COL_NAME);
+                        int emailID=cursor.getColumnIndex(COL_EMAIL);
+                        int passID=cursor.getColumnIndex(COL_PASS);
+
+                        List <User> users=new ArrayList<User>();
+
+                        if (cursor.moveToFirst()){
+                            while (!cursor.isAfterLast()){
+                                String name=cursor.getString(nameID);
+                                String email=cursor.getString(emailID);
+                                String pass=cursor.getString(passID);
+
+                                users.add(new SempleUser(name, pass, email));
+
+                                cursor.moveToNext();
+                            }
+
                         }
 
-                        MyApp.userMap.put(user1.hashCode(), user1);
+                        Log.d(TAG, "All users - "+users);
+
+                        ContentValues contentValues = new ContentValues();
+
+                        contentValues.put(COL_NAME, user1.getName());
+                        contentValues.put(COL_EMAIL, user1.getEmail());
+                        contentValues.put(COL_PASS, user1.getPass());
+
+                        /*writableDatabase.insert(DBHelper.TB_NAME_USERS, null, contentValues);*/
 
 
-                        saveUserToSP(user1);
-                        User savedUser = getCurrentUser();
+                        getContentResolver().insert(MyContentProvider.CONTENT_URI_USERS, contentValues);
+                        //DB End
 
-                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add,savedUser)
-                                  ,
+                        Toast.makeText(SignUpActivity.this, getString(R.string.msg_user_add, user1)
+                                ,
                                 Toast.LENGTH_SHORT).show();
 
                         finish();
@@ -94,7 +144,7 @@ public class SignUpActivity extends Activity {
     public static final String PREF_KEY_PASSW = "p.pass";
     public static final String PREF_KEY_EMAIL = "p.mail";
 
-    private void saveUserToSP (User user){
+    private void saveUserToSP(User user) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor edit = sharedPreferences.edit();
 
@@ -106,7 +156,7 @@ public class SignUpActivity extends Activity {
     }
 
 
-    public User getCurrentUser (){
+    public User getCurrentUser() {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
