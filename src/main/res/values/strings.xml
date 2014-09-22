@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HelloWorld</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_up">Sign up</string>
+    <string name="error_text_empty_name">Имя не может быть пустым</string>
+    <string name="msg_user_add">"Пользователь %1$s добавлен!</string>
+    <string name="title_activity_score">ScoreActivity</string>
+    <string name="title_activity_maps">Map</string>
+
+</resources>

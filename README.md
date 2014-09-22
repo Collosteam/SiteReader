@@ -1,4 +1,0 @@
-SiteReader
-==========
-
-Create project
