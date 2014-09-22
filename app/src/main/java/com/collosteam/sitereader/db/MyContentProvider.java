@@ -30,10 +30,10 @@ public class MyContentProvider extends ContentProvider implements DBColumns {
 
     // Типы данных, набор строк
     static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd."
-            + AUTHORITY + "." + PATH;
+            + AUTHORITY + "" + PATH;
     // Одна строка
     static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd."
-            + AUTHORITY + "." + PATH;
+            + AUTHORITY + "" + PATH;
 
     // UriMatcher, общий Uri
     static final int URI_ALL_USERS= 1;
