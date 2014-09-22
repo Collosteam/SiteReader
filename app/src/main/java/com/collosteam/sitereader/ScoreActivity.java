@@ -3,26 +3,26 @@ package com.collosteam.sitereader;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.collosteam.sitereader.adapter.ScoreAdapter;
 import com.collosteam.sitereader.db.DBColumns;
-import com.collosteam.sitereader.db.MyContentProvider;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,6 +50,8 @@ public class ScoreActivity extends Activity implements DBColumns, LoaderManager.
     @InjectView(R.id.listView)
     ListView listView;
 
+
+
     @OnClick(R.id.button)
     void onButtonAddClick(){
 
@@ -75,15 +77,39 @@ public class ScoreActivity extends Activity implements DBColumns, LoaderManager.
         getLoaderManager().initLoader(100001,null,this);
         adapter = new ScoreAdapter(this,
                 getContentResolver().query(
-                        Uri.withAppendedPath(CONTENT_URI, TB_NAME_SCORE)
-                        ,null
-                        ,null
-                        ,null
-                        ,null));
+                Uri.withAppendedPath(CONTENT_URI, TB_NAME_SCORE)
+                ,null
+                ,null
+                ,null
+                ,null));
 
         listView.setAdapter(adapter);
             }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+        MyTask task1=new MyTask();
+        task1.execute(100);
+
+        MyTask task2=new MyTask();
+        task2.execute(200);
+
+        task1.cancel(true);
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ScoreActivity.this,"postDelayed",Toast.LENGTH_SHORT ).show();
+            }
+        },3000L);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,6 +143,55 @@ public class ScoreActivity extends Activity implements DBColumns, LoaderManager.
             adapter.swapCursor(data);
         }
 
+    }
+
+    private class MyTask extends AsyncTask<Integer,Character,String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            Log.d(TAG,"onPreExecute");
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            name.setText(s);
+        }
+
+        @Override
+        protected void onProgressUpdate(Character... values) {
+            super.onProgressUpdate(values);
+
+            points.setText("" + values[0].hashCode());
+
+        }
+
+        @Override
+        protected String doInBackground(Integer... params) {
+
+            String string = null;
+            for (int i = 0; i < 10; i++) {
+                Character c = (char) (Math.random() * Character.MAX_VALUE);
+                string += c.toString();
+
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (isCancelled()){
+                    break;
+                }
+
+                publishProgress(c);
+            }
+
+            return string;
+        }
     }
 
     @Override

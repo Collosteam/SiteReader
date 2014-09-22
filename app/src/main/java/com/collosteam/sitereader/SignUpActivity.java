@@ -140,7 +140,7 @@ public class SignUpActivity extends Activity implements DBColumns{
 
     }
 
-    public static final String PREF_KEY_NAME = "p.name";
+    /*public static final String PREF_KEY_NAME = "p.name";
     public static final String PREF_KEY_PASSW = "p.pass";
     public static final String PREF_KEY_EMAIL = "p.mail";
 
@@ -166,7 +166,7 @@ public class SignUpActivity extends Activity implements DBColumns{
 
         User user = new SempleUser(name, pass, email);
         return user;
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
