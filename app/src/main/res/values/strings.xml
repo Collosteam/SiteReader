@@ -8,5 +8,6 @@
     <string name="error_text_empty_name">Имя не может быть пустым</string>
     <string name="msg_user_add">"Пользователь %1$s добавлен!</string>
     <string name="title_activity_score">ScoreActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
