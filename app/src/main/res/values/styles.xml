@@ -1,8 +1,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
         <!-- Customize your theme here. -->
+        <item name="android:buttonStyle">@style/Custom.Button</item>
+
     </style>
+
+    <style name="Custom.Button" parent="@android:style/Widget.Holo.Light.Button">
+        <item name="android:background">@drawable/button_selector</item>
+    </style>
+
 
 </resources>

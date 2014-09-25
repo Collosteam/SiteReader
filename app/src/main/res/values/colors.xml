@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="custom_blue_light">#ff00e6ff</color>
+    <color name="custom_blue">#ff130eff</color>
+
+    <color name="custom_green_light">#ff00ff87</color>
+    <color name="custom_green">#ff24d200</color>
+
+</resources>

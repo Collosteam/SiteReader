@@ -7,7 +7,8 @@
     <string name="title_activity_sign_up">Sign up</string>
     <string name="error_text_empty_name">Имя не может быть пустым</string>
     <string name="msg_user_add">"Пользователь %1$s добавлен!</string>
+    <string name="test_message">Hello world</string>
+    <string name="test_message2">Second text</string>
     <string name="title_activity_score">ScoreActivity</string>
-    <string name="title_activity_maps">Map</string>
 
 </resources>

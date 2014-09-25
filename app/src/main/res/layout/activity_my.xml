@@ -16,6 +16,7 @@
 
     <Button
         android:id="@+id/button"
+        style="@style/Custom.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -52,8 +53,17 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button4"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/editext"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true"
+        android:text="Notify" />
 
 </RelativeLayout>

@@ -1,6 +1,10 @@
 package com.collosteam.sitereader;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,9 +12,10 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.collosteam.sitereader.db.DBColumns;
 import com.collosteam.sitereader.net.NetworkManager2;
@@ -39,7 +44,7 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
                 /*Check Button*/
         Button button4 = (Button) findViewById(R.id.button4);
-        button3.setOnClickListener(this);
+        button4.setOnClickListener(this);
 
         final NetworkManager2 networkManager = new NetworkManager2();
 
@@ -78,6 +83,12 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
             }
         });
 
+
+                 /*Check Button*/
+        Button button5 = (Button) findViewById(R.id.button5);
+        button5.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -99,6 +110,7 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onClick(View v) {
         String msg = new String();
@@ -114,7 +126,7 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
                 msg = "Go!";
 
                 Intent intent = new Intent(this, SignUpActivity.class);
-                intent.putExtra(SignUpActivity.EXTRAS_NAME,"Bill");
+                intent.putExtra(SignUpActivity.EXTRAS_NAME, "Bill");
 
                 startActivity(intent);
 
@@ -130,13 +142,51 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
                 break;
 
+            case R.id.button5:
+
+                Notification.Builder builder = new Notification.Builder(this);
+
+                builder.setContentText("I'm suspicious of this solution because the supplicant is only used if WPA (or some variation of WPA) is usesd: if user connects to an AP with no authentication or WEP then the supplicant is not involved. ");
+                builder.setContentTitle("Test notification");
+                builder.setSmallIcon(R.drawable.icon);
+
+                Notification notify = builder.build();
+                NotificationManager manager = (NotificationManager)
+                        getSystemService(Context.NOTIFICATION_SERVICE);
+
+                manager.notify(120, notify);
+
+
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.scale_and_rotate);
+
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                v.startAnimation(animation);
+
+
+                break;
+
 
             default:
                 msg = "Ups!";
                 break;
         }
-        Toast.makeText(MyActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+        // Toast.makeText(MyActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
     }
