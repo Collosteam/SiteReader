@@ -1,7 +1,8 @@
 package com.collosteam.sitereader;
 
+
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.Fragment;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -9,48 +10,62 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.collosteam.sitereader.db.DBColumns;
 import com.collosteam.sitereader.net.NetworkManager2;
-import com.collosteam.sitereader.ui.CustomFontTextView;
 
-public class MyActivity extends Activity implements View.OnClickListener, DBColumns {
-    EditText editText;
-    private String TAG = "{MyActivity}";
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FirstFragment extends Fragment implements View.OnClickListener {
+
+
+    private EditText editText;
+
+    public FirstFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        TextView textView = (CustomFontTextView) findViewById(R.id.text);
+
+        return inflater.inflate(R.layout.activity_my, container, false);
+
+    }
+
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
 /*Hello Button*/
-        Button button = (Button) findViewById(R.id.button);
+        Button button = (Button) view.findViewById(R.id.button);
         button.setOnClickListener(this);
 /*Go Button*/
-        Button button2 = (Button) findViewById(R.id.button2);
+        Button button2 = (Button) view.findViewById(R.id.button2);
         button2.setOnClickListener(this);
 
         /*Score Button*/
-        Button button3 = (Button) findViewById(R.id.button3);
+        Button button3 = (Button) view.findViewById(R.id.button3);
         button3.setOnClickListener(this);
 
                 /*Check Button*/
-        Button button4 = (Button) findViewById(R.id.button4);
+        Button button4 = (Button) view.findViewById(R.id.button4);
         button4.setOnClickListener(this);
 
         final NetworkManager2 networkManager = new NetworkManager2();
 
-        editText = (EditText) findViewById(R.id.editText);
+        editText = (EditText) view.findViewById(R.id.editText);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,30 +102,12 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
 
                  /*Check Button*/
-        Button button5 = (Button) findViewById(R.id.button5);
+        Button button5 = (Button) view.findViewById(R.id.button5);
         button5.setOnClickListener(this);
 
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressLint("NewApi")
     @Override
@@ -127,7 +124,7 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
             case R.id.button2:
                 msg = "Go!";
 
-                Intent intent = new Intent(this, SignUpActivity.class);
+                Intent intent = new Intent(getActivity(), SignUpActivity.class);
                 intent.putExtra(SignUpActivity.EXTRAS_NAME, "Bill");
 
                 startActivity(intent);
@@ -137,7 +134,7 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
             case R.id.button3:
                 msg = "Score!";
-                Intent intent2 = new Intent(this, ScoreActivity.class);
+                Intent intent2 = new Intent(getActivity(), ScoreActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.button4:
@@ -146,7 +143,7 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
             case R.id.button5:
 
-                Notification.Builder builder = new Notification.Builder(this);
+                Notification.Builder builder = new Notification.Builder(getActivity());
 
                 builder.setContentText("I'm suspicious of this solution because the supplicant is only used if WPA (or some variation of WPA) is usesd: if user connects to an AP with no authentication or WEP then the supplicant is not involved. ");
                 builder.setContentTitle("Test notification");
@@ -154,12 +151,12 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
                 Notification notify = builder.build();
                 NotificationManager manager = (NotificationManager)
-                        getSystemService(Context.NOTIFICATION_SERVICE);
+                        getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
                 manager.notify(120, notify);
 
 
-                Animation animation = AnimationUtils.loadAnimation(this, R.anim.scale_and_rotate);
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_and_rotate);
 
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -191,4 +188,6 @@ public class MyActivity extends Activity implements View.OnClickListener, DBColu
 
     }
 }
+
+
 
