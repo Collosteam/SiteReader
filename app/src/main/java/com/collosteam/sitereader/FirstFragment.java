@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.collosteam.sitereader.net.NetworkManager2;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 /**
@@ -33,6 +37,27 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    /**
+     * Gets a string error reason from an error code.
+     */
+    private static String getErrorReason(int errorCode) {
+        String errorReason = "";
+        switch (errorCode) {
+            case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+                errorReason = "Internal error";
+                break;
+            case AdRequest.ERROR_CODE_INVALID_REQUEST:
+                errorReason = "Invalid request";
+                break;
+            case AdRequest.ERROR_CODE_NETWORK_ERROR:
+                errorReason = "Network Error";
+                break;
+            case AdRequest.ERROR_CODE_NO_FILL:
+                errorReason = "No fill";
+                break;
+        }
+        return errorReason;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +67,6 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         return inflater.inflate(R.layout.activity_my, container, false);
 
     }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -57,7 +81,12 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
 
         /*Score Button*/
         Button button3 = (Button) view.findViewById(R.id.button3);
-        button3.setOnClickListener(this);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
                 /*Check Button*/
         Button button4 = (Button) view.findViewById(R.id.button4);
@@ -101,13 +130,78 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         });
 
 
+
                  /*Check Button*/
         Button button5 = (Button) view.findViewById(R.id.button5);
         button5.setOnClickListener(this);
 
 
-    }
+        final AdView adView = (AdView) view.findViewById(R.id.adView);
 
+        // Set the AdListener.
+        adView.setAdListener(new AdListener() {
+            public static final String LOG_TAG = "{AdListener}";
+
+            /**
+             * Called when an ad is clicked and about to return to the application.
+             */
+            @Override
+            public void onAdClosed() {
+                Log.d(LOG_TAG, "onAdClosed");
+//                    Toast.makeText(BannerXMLSample.this, "onAdClosed", Toast.LENGTH_SHORT).show();
+            }
+
+            /**
+             * Called when an ad failed to load.
+             */
+            @Override
+            public void onAdFailedToLoad(int error) {
+                String message = "onAdFailedToLoad: " + getErrorReason(error);
+                Log.d(LOG_TAG, message);
+//                    Toast.makeText(BannerXMLSample.this, message, Toast.LENGTH_SHORT).show();
+
+                //   adView.setVisibility(View.GONE);
+
+            }
+
+            /**
+             * Called when an ad is clicked and going to start a new Activity that will
+             * leave the application (e.g. breaking out to the Browser or Maps
+             * application).
+             */
+            @Override
+            public void onAdLeftApplication() {
+                Log.d(LOG_TAG, "onAdLeftApplication");
+//                    Toast.makeText(BannerXMLSample.this, "onAdLeftApplication", Toast.LENGTH_SHORT).show();
+            }
+
+            /**
+             * Called when an Activity is created in front of the app (e.g. an
+             * interstitial is shown, or an ad is clicked and launches a new Activity).
+             */
+            @Override
+            public void onAdOpened() {
+                Log.d(LOG_TAG, "onAdOpened");
+//                    Toast.makeText(BannerXMLSample.this, "onAdOpened", Toast.LENGTH_SHORT).show();
+            }
+
+            /**
+             * Called when an ad is loaded.
+             */
+            @Override
+            public void onAdLoaded() {
+                Log.d(LOG_TAG, "onAdLoaded");
+//                    Toast.makeText(BannerXMLSample.this, "onAdLoaded", Toast.LENGTH_SHORT).show();
+                // adView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        adView.loadAd(adRequest);
+
+
+    }
 
     @SuppressLint("NewApi")
     @Override

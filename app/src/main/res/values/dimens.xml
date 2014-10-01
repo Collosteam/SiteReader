@@ -7,4 +7,7 @@
     <dimen name="icon_size">100dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
 
+    <dimen name="text_size">30sp</dimen>
+    <dimen name="button_h">50dp</dimen>
+
 </resources>
